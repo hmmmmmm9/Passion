@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News API Example</title>
+</head>
+<body>
+    <h1>Latest News</h1>
+    <ul id="news-list"></ul>
+</body>
+<script>
+    const apiKey = '1c79afc4719b42f8b304b83c72a54596'; // Replace with your News API key
+    const apiUrl = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=' + apiKey;
+
+    // Function to fetch and display news
+    async function fetchNews() {
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            const newsList = document.getElementById('news-list');
+            
+            data.articles.forEach(article => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<a href="${article.url}" target="_blank">${article.title}</a>`;
+                newsList.appendChild(listItem);
+            });
+        } catch (error) {
+            console.error('Error fetching news:', error);
+        }
+    }
+
+    fetchNews();
+</script>
+
+</html>
